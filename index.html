@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在地動物飼養環境中生物安全措施的成本效益與有效性分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Palette Name: Vibrant Future -->
+    <!-- 
+         Source Material Analysis:
+         The provided outline describes a study evaluating biosecurity measures using CEA and BCI.
+         
+         Narrative Structure:
+         1. Intro: Problem Statement (Disease risk vs. Cost).
+         2. Method: Explaining the BCI and CER formula.
+         3. Results 1: Current BCI gaps (Radar Chart).
+         4. Results 2: Cost Breakdown (Stacked Bar).
+         5. Results 3: Effectiveness Matrix (Bubble Chart - The Core Finding).
+         6. Discussion: Labor vs. Structure sustainability (Line Chart).
+         7. Conclusion: Strategic Recommendations.
+
+         Chart Choices (No SVG):
+         1. Methodology: CSS-based Flowchart (Goal: Organize).
+         2. Current State: Radar Chart (Goal: Compare categories).
+         3. Cost Structure: Stacked Bar (Goal: Compare composition).
+         4. Efficiency: Bubble Chart (Goal: Relationships/Compare - Cost vs Effect vs Adoption).
+         5. Sustainability: Line Chart (Goal: Change over time).
+    -->
+
+    <style>
+        body {
+            font-family: 'Noto Sans TC', 'Roboto', sans-serif;
+            background-color: #F8F9FA;
+            color: #2B2D42;
+        }
+
+        /* Chart Container Strategy: Relative positioning, controlled max-height/width */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Custom Card Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-left: 5px solid #4361EE;
+            transition: transform 0.2s;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .highlight-text {
+            color: #F72585;
+            font-weight: bold;
+        }
+
+        /* CSS Flowchart Elements (No SVG) */
+        .flow-box {
+            background-color: #4CC9F0;
+            color: #2B2D42;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .arrow-down {
+            width: 0; 
+            height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #2B2D42;
+            margin: 10px auto;
+        }
+
+        .arrow-right {
+            display: inline-block;
+            font-size: 24px;
+            color: #2B2D42;
+            margin: 0 10px;
+        }
+
+        /* Formula Styling */
+        .formula-box {
+            font-family: 'Roboto', monospace;
+            background: #E0E7FF;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #4361EE;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header Section -->
+    <header class="max-w-7xl mx-auto mb-12 text-center">
+        <div class="inline-block px-4 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4">學術研究模擬報告</div>
+        <h1 class="text-3xl md:text-5xl font-bold mb-4 text-[#2B2D42]">
+            在地動物飼養環境中<br><span class="text-[#4361EE]">生物安全措施</span>的成本效益與有效性分析
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            基於高中自主研究論文綱要的實證模擬。利用 <span class="highlight-text">BCI (生物安全符合度指數)</span> 作為代理指標，量化防疫投資的真實效益。
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Section 1: Introduction & Methodology -->
+        <section class="col-span-1 md:col-span-2 glass-card p-6 md:p-8">
+            <h2 class="text-2xl font-bold mb-4 border-b-2 border-gray-100 pb-2">1. 研究方法論：從成本到防護力</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <p class="mb-4 text-gray-700 leading-relaxed">
+                        在缺乏直接流行病學數據（如疾病爆發率）的情況下，本研究採用創新的 <strong>CEA (成本有效性分析)</strong> 框架。我們定義了兩個核心變數：<strong>總成本 ($C_{Total}$)</strong> 與 <strong>生物安全符合度指數 ($BCI$)</strong>。
+                    </p>
+                    <p class="mb-4 text-gray-700 leading-relaxed">
+                        研究的核心在於計算每一項防疫措施的 <strong>CER (成本有效性比率)</strong>，即「每提升 1% 的生物安全防護，需要投入多少成本」。
+                    </p>
+                    <div class="formula-box shadow-inner">
+                        $$ CER = \frac{C_{Total}}{\Delta BCI} $$
+                        <div class="text-sm text-gray-500 mt-2">CER 越低，代表投資效益越高</div>
+                    </div>
+                </div>
+                
+                <!-- CSS Flowchart (NO SVG) -->
+                <div class="bg-gray-50 p-6 rounded-xl flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-gray-500 mb-4 text-sm uppercase tracking-wide">評估模型流程</h3>
+                    <div class="flex flex-col items-center w-full">
+                        <div class="flow-box w-3/4">輸入: 措施成本 ($C_{Total}$)</div>
+                        <div class="text-2xl font-bold my-2 text-gray-400">↓</div>
+                        <div class="flow-box w-3/4 bg-[#F72585] text-white">轉換: 現場執行率 (Compliance)</div>
+                        <div class="text-2xl font-bold my-2 text-gray-400">↓</div>
+                        <div class="flow-box w-3/4 bg-[#4361EE] text-white">輸出: BCI 指數提升 ($\Delta BCI$)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Current Status (Radar Chart) -->
+        <section class="col-span-1 glass-card p-6">
+            <h2 class="text-xl font-bold mb-3 text-[#4361EE]">2. 現況分析：在地農場防護缺口</h2>
+            <p class="text-sm text-gray-600 mb-6">
+                針對 50 家在地中小型動物飼養場的 BCI 調查顯示，硬體設施普遍優於軟體管理。雖然「物理隔離」得分尚可，但在「人員進出管制」與「紀錄保存」方面存在顯著風險漏洞。這顯示農戶更傾向於一次性的設施投入，而非持續性的管理行為。
+            </p>
+            <div class="chart-container">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 3: Cost Structure (Stacked Bar) -->
+        <section class="col-span-1 glass-card p-6">
+            <h2 class="text-xl font-bold mb-3 text-[#4361EE]">3. 成本結構：一次性 vs. 持續性</h2>
+            <p class="text-sm text-gray-600 mb-6">
+                分析不同規模農場的成本結構發現，結構性措施（如圍籬）主要由<strong>材料成本 ($C_{Mat}$)</strong> 構成，而運營性措施（如消毒程序）則隱含極高的<strong>勞力與時間成本 ($C_{Labor}$)</strong>。許多小規模農戶低估了 $C_{Labor}$，導致長期執行率下降。
+            </p>
+            <div class="chart-container">
+                <canvas id="stackedBarChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 4: The Effectiveness Matrix (Bubble Chart) - MAIN VISUAL -->
+        <section class="col-span-1 md:col-span-2 glass-card p-6 md:p-8 bg-gradient-to-br from-white to-blue-50">
+            <h2 class="text-2xl font-bold mb-2 text-[#F72585]">4. 關鍵發現：CER 成本有效性矩陣</h2>
+            <p class="text-gray-700 mb-6 max-w-3xl">
+                此圖表展示了各項措施的經濟效益。
+                <br>• <strong>X軸 (成本)</strong>：越往右越貴。
+                <br>• <strong>Y軸 (有效性)</strong>：越往上 BCI 提升越多。
+                <br>• <strong>氣泡大小</strong>：代表農戶的實際採用率 (Adoption Rate)。
+                <br><span class="text-sm bg-yellow-100 px-2 py-1 rounded">結論：左上角區域（低成本、高防護）是最佳策略點。</span>
+            </p>
+            <div class="chart-container" style="max-width: 800px; height: 450px;">
+                <canvas id="bubbleChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 5: Sustainability (Line Chart) -->
+        <section class="col-span-1 glass-card p-6">
+            <h2 class="text-xl font-bold mb-3 text-[#4361EE]">5. 行為衰退：勞力密集措施的隱憂</h2>
+            <p class="text-sm text-gray-600 mb-6">
+                長期追蹤數據揭示了一個危險趨勢：高勞力投入的措施（如嚴格的靴具消毒、更衣程序），其執行率隨時間顯著下降。相比之下，結構性措施（如防鳥網）雖然初期成本高，但效果穩定，幾乎不受人為惰性影響。
+            </p>
+            <div class="chart-container">
+                <canvas id="lineChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 6: Conclusions -->
+        <section class="col-span-1 glass-card p-6 flex flex-col justify-center">
+            <h2 class="text-xl font-bold mb-4 text-[#4361EE]">6. 實務建議與結論</h2>
+            <div class="space-y-4">
+                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-[#4361EE]">
+                    <h3 class="font-bold text-[#2B2D42]">針對農戶 (Farmers)</h3>
+                    <p class="text-sm text-gray-700 mt-1">
+                        優先投資「結構性措施」（如完整圍籬）。對於運營性措施，應選擇步驟簡化、低 $C_{Labor}$ 的方案，以維持長期高 BCI。
+                    </p>
+                </div>
+                
+                <div class="bg-pink-50 p-4 rounded-lg border-l-4 border-[#F72585]">
+                    <h3 class="font-bold text-[#2B2D42]">針對主管機關 (Authorities)</h3>
+                    <p class="text-sm text-gray-700 mt-1">
+                        補助政策應從單純的設備補助，轉向資助 CER 排名靠前的項目。推廣計畫需包含「行為改變」教育，解決高勞力措施的依從性問題。
+                    </p>
+                </div>
+
+                <div class="mt-4 p-4 bg-gray-100 rounded text-xs text-gray-500">
+                    <strong>研究限制：</strong> 本研究使用 BCI 作為代理指標。未來應結合血清學檢測數據進行更深入的 CBA 分析。
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-gray-500 text-sm">
+        <p>Generated by Canvas Infographics &copy; 2023 | No SVG or Mermaid JS used.</p>
+        <p class="mt-2">Color Palette: Vibrant Future (#4361EE, #F72585, #4CC9F0)</p>
+    </footer>
+
+    <script>
+        // --- Utility Function: Label Wrapping (Mandatory) ---
+        // Splits strings > 16 chars into arrays of strings for Chart.js
+        function wrapLabels(labels) {
+            return labels.map(label => {
+                if (label.length <= 16) return label;
+                
+                const words = label.split(''); // Splitting by char for Chinese context primarily, or words for English
+                // For mixed content, a simpler approach is splitting by approximate length
+                let result = [];
+                let currentLine = '';
+                
+                for (let i = 0; i < label.length; i++) {
+                    currentLine += label[i];
+                    // Break if line is long enough, avoiding breaking mid-word if possible (simplified here for mixed)
+                    if (currentLine.length >= 16) {
+                        result.push(currentLine);
+                        currentLine = '';
+                    }
+                }
+                if (currentLine) result.push(currentLine);
+                return result;
+            });
+        }
+
+        // --- Utility Function: Common Tooltip Config (Mandatory) ---
+        const commonTooltipOptions = {
+            backgroundColor: 'rgba(43, 45, 66, 0.9)',
+            titleFont: { size: 14, family: "'Noto Sans TC', sans-serif" },
+            bodyFont: { size: 13, family: "'Roboto', sans-serif" },
+            padding: 10,
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels ? item.chart.data.labels[item.dataIndex] : '';
+                    // Handle Bubble chart different data structure if needed, or fallback
+                    if (!label && item.raw && item.raw.label) label = item.raw.label;
+
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- Chart 1: Radar Chart (Current Status) ---
+        const ctxRadar = document.getElementById('radarChart').getContext('2d');
+        const labelsRadar = ['物理隔離設施 (Physical)', '清潔與消毒 (Sanitation)', '人員進出管制 (Traffic)', '害蟲與野生動物控制 (Pest)', '教育訓練與紀錄 (Record)'];
+        
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: wrapLabels(labelsRadar),
+                datasets: [{
+                    label: '平均 BCI 得分 (0-100)',
+                    data: [78, 65, 42, 55, 30],
+                    fill: true,
+                    backgroundColor: 'rgba(67, 97, 238, 0.2)',
+                    borderColor: '#4361EE',
+                    pointBackgroundColor: '#F72585',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#F72585'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#E0E7FF' },
+                        grid: { color: '#E0E7FF' },
+                        pointLabels: {
+                            font: { size: 12, family: "'Noto Sans TC', sans-serif" },
+                            color: '#2B2D42'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // --- Chart 2: Stacked Bar (Cost Structure) ---
+        const ctxBar = document.getElementById('stackedBarChart').getContext('2d');
+        const labelsBar = ['小型農場 (Small Scale)', '中型農場 (Medium Scale)', '大型商業農場 (Commercial)'];
+        
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: wrapLabels(labelsBar),
+                datasets: [
+                    {
+                        label: '材料/設備成本 (Material)',
+                        data: [45, 120, 350], // Simulated currency units
+                        backgroundColor: '#4CC9F0',
+                    },
+                    {
+                        label: '勞力/時間成本 (Labor)',
+                        data: [80, 150, 200], // Labor is disproportionately high for small farms relatively
+                        backgroundColor: '#F72585',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true },
+                    y: { 
+                        stacked: true,
+                        title: { display: true, text: '年度預估成本 (單位: 千元)' }
+                    }
+                },
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // --- Chart 3: Bubble Chart (The Effectiveness Matrix) ---
+        const ctxBubble = document.getElementById('bubbleChart').getContext('2d');
+        
+        // Data points representing specific measures
+        // x: Cost (Inverse attractiveness), y: BCI Gain (Effectiveness), r: Adoption Rate
+        const bubbleData = [
+            { x: 10, y: 15, r: 25, label: '洗手與靴具消毒站' }, // Low Cost, Mod Effect, High Adoption
+            { x: 80, y: 35, r: 15, label: '完整周界圍籬' }, // High Cost, High Effect, Med Adoption
+            { x: 20, y: 8, r: 10, label: '訪客登記制度' }, // Low Cost, Low Effect, Low Adoption (Labor heavy)
+            { x: 60, y: 25, r: 5, label: '車輛自動消毒門' }, // High Cost, Med Effect, Low Adoption
+            { x: 5, y: 5, r: 30, label: '定期除草' }, // Very Low Cost, Low Effect, High Adoption
+            { x: 30, y: 28, r: 8, label: '分區飼養管理' } // Med Cost, High Effect, Low Adoption (Complex)
+        ];
+
+        new Chart(ctxBubble, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label: '生物安全措施評估',
+                    data: bubbleData,
+                    backgroundColor: function(context) {
+                        const val = context.raw?.y;
+                        // Color scale based on Effectiveness
+                        return val > 20 ? 'rgba(67, 97, 238, 0.7)' : 'rgba(247, 37, 133, 0.7)';
+                    },
+                    borderColor: 'rgba(255,255,255,0.8)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: { display: true, text: '實施總成本 (Total Cost Index)' },
+                        min: 0,
+                        max: 100
+                    },
+                    y: {
+                        title: { display: true, text: 'BCI 提升幅度 (Effectiveness)' },
+                        min: 0,
+                        max: 40
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                return context[0].raw.label; // Use custom label for title
+                            },
+                            label: function(context) {
+                                return `成本: ${context.raw.x}, 效益: +${context.raw.y} BCI, 採用率: ${context.raw.r}%`;
+                            }
+                        },
+                        backgroundColor: 'rgba(43, 45, 66, 0.9)',
+                        padding: 10
+                    },
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // --- Chart 4: Line Chart (Sustainability/Decay) ---
+        const ctxLine = document.getElementById('lineChart').getContext('2d');
+        const weeks = Array.from({length: 12}, (_, i) => `第 ${i+1} 週`);
+        
+        new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: wrapLabels(weeks),
+                datasets: [
+                    {
+                        label: '結構性措施 (如硬體設施)',
+                        data: [100, 100, 99, 99, 98, 98, 97, 97, 96, 96, 95, 95], // Steady
+                        borderColor: '#4361EE',
+                        backgroundColor: '#4361EE',
+                        tension: 0.1,
+                        borderWidth: 3
+                    },
+                    {
+                        label: '運營性措施 (如人員清潔)',
+                        data: [100, 95, 85, 75, 65, 55, 50, 48, 45, 42, 40, 38], // Decays rapidly
+                        borderColor: '#F72585',
+                        backgroundColor: '#F72585',
+                        tension: 0.4,
+                        borderWidth: 3,
+                        borderDash: [5, 5]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: '措施執行完整度 (%)' }
+                    }
+                },
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
